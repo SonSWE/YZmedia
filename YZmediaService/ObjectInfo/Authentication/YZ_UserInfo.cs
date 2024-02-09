@@ -2,7 +2,7 @@
 
 namespace ObjectInfo
 {
-    public class UserInfo
+    public class YZ_UserInfo
     {
         public decimal STT { get; set; }
         public string? User_Name { get; set; }
@@ -16,17 +16,10 @@ namespace ObjectInfo
 
 
         public decimal User_Id { get; set; }
-        public decimal Reference_Id { get; set; }
-
-        public string? Lst_Com_Id { get; set; }
-        public decimal Com_Id { get; set; }
-        public string? Com_Name { get; set; }
 
         public string? Email { get; set; }
         public string? Phone { get; set; }
         public string? Token { get; set; }
-
-        public List<UserFunction> FunctionSettings = new List<UserFunction>();
     }
 
     public class SAUser

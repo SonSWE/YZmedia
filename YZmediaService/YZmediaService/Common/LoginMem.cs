@@ -12,7 +12,7 @@ namespace YZmediaService
         /// <summary>
         /// Key: UserPid; Value: User
         /// </summary>
-        private static readonly Dictionary<long, UserInfo> c_dicUser = new();
+        private static readonly Dictionary<long, YZ_UserInfo> c_dicUser = new();
         /// <summary>
         /// Key: RefeshToken; Value: Info of RefeshToken
         /// </summary>
@@ -62,7 +62,7 @@ namespace YZmediaService
 
         #region Hanle User
 
-        public static void SetUser(UserInfo user)
+        public static void SetUser(YZ_UserInfo user)
         {
             lock (c_lock)
             {
@@ -87,7 +87,7 @@ namespace YZmediaService
             }
         }
 
-        public static UserInfo? GetUser(long userPid)
+        public static YZ_UserInfo? GetUser(long userPid)
         {
             lock (c_lock)
             {
@@ -100,7 +100,7 @@ namespace YZmediaService
             return null;
         }
 
-        public static UserInfo? GetUserByUserId(string userId)
+        public static YZ_UserInfo? GetUserByUserId(string userId)
         {
             lock (c_lock)
             {

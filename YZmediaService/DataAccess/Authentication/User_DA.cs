@@ -14,7 +14,7 @@ namespace DataAccess
     public class User_DA
     {
 
-        public UserInfo User_Login(string p_user_name, string p_password)
+        public YZ_UserInfo User_Login(string p_user_name, string p_password)
         {
             try
             {
@@ -23,28 +23,12 @@ namespace DataAccess
                     new OracleParameter("p_password", OracleDbType.Varchar2, p_password, ParameterDirection.Input),
                     new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output)
                 );
-                return CBO<UserInfo>.FillObjectFromDataSet(ds);
+                return CBO<YZ_UserInfo>.FillObjectFromDataSet(ds);
             }
             catch (Exception ex)
             {
                 Logger.log.Error(ex.ToString());
-                return new UserInfo();
-            }
-        }
-
-        public DataSet User_Rights_GetByUser(decimal p_user_id)
-        {
-            try
-            {
-                DataSet ds = OracleHelper.ExecuteDataset(Config_Info.gConnectionString, CommandType.StoredProcedure, Config_Info.c_user_connect + "PKG_SH_USER_RIGHT.proc_get_all_by_user_id",
-                  new OracleParameter("p_user_id", OracleDbType.Decimal, p_user_id, ParameterDirection.Input),
-                  new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output));
-                return ds;
-            }
-            catch (Exception ex)
-            {
-                Logger.log.Error(ex.ToString());
-                return null;
+                return new YZ_UserInfo();
             }
         }
     }

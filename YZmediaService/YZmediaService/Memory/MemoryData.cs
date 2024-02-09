@@ -1,6 +1,7 @@
 ﻿using CommonLib;
 using ObjectInfo;
 using System.Data;
+using YZmediaService.Memory;
 
 namespace YZmediaService
 {
@@ -34,6 +35,7 @@ namespace YZmediaService
         {
             try
             {
+                Allcode_Memory.Reload();
                 MemoryData.Load_sysvar();
             }
             catch (Exception ex)

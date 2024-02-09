@@ -15,7 +15,7 @@ namespace YZmediaService.Controllers
     public class LoginController : Controller
     {
         [Route("api/sso/get-jwt")]
-        public ActionResult<UserInfo> Login(string p_user_name)
+        public ActionResult<YZ_UserInfo> Login(string p_user_name)
         {
             Logger.log.Debug("begin user_name " + p_user_name);
 
@@ -25,10 +25,9 @@ namespace YZmediaService.Controllers
                 string _key = CommonFunc.DecryptString_AES(p_user_name);
                 if (_key.Contains("dangtq0751060770") && _key.Contains("halu0212"))
                 {
-                    UserInfo userInfo = new UserInfo
+                    YZ_UserInfo userInfo = new YZ_UserInfo
                     {
                         User_Name = "XXXX",
-                        Reference_Id = 0,
                         User_Type = 0
                     };
 
@@ -47,15 +46,13 @@ namespace YZmediaService.Controllers
             }
         }
 
-        private string GenerateJSONWebToken(UserInfo userInfo)
+        private string GenerateJSONWebToken(YZ_UserInfo userInfo)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Config_Info.Jwt_Key));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
 
             var claims = new[] {
                 new Claim(JwtRegisteredClaimNames.Sub,  userInfo.User_Name),
-                new Claim("reference_id", userInfo.Reference_Id.ToString()),
-                new Claim("reference_type", userInfo.User_Type.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
@@ -76,19 +73,14 @@ namespace YZmediaService.Controllers
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
 
-        private UserInfo AuthenticateUser(string p_user_name, string p_password)
+        private YZ_UserInfo AuthenticateUser(string p_user_name, string p_password)
         {
             try
             {
                 User_DA user_DA = new User_DA();
-                UserInfo userInfo = user_DA.User_Login(p_user_name, p_password);
-                if (userInfo != null && userInfo.User_Id > 0)
-                {
-                    DataSet ds = user_DA.User_Rights_GetByUser(userInfo.User_Id);
-                    List<UserFunction> _lst = CBO<UserFunction>.FillCollection_FromDataSet(ds);
-                    userInfo.FunctionSettings = _lst;
-                    return userInfo;
-                }
+                YZ_UserInfo userInfo = user_DA.User_Login(p_user_name, p_password);
+                
+                return userInfo;
             }
             catch (Exception ex)
             {
@@ -279,23 +271,15 @@ namespace YZmediaService.Controllers
         }
 
 
-        private async Task<Tuple<string, string>> GetJwtAsync(string Refresh_Token, UserInfo user)
+        private async Task<Tuple<string, string>> GetJwtAsync(string Refresh_Token, YZ_UserInfo user)
         {
             var now = DateTime.UtcNow;
 
-            //Lấy quyền từ bảng trung gian
-            List<UserFunction> functionSettings = user.FunctionSettings;
-
-            LoginMem.SetFunctions((long)user.User_Id, functionSettings);
             var claims = new Claim[]
             {
                 new Claim(CustomClaimTypes.User_Id, user.User_Id.ToString()),
                 new Claim(ClaimTypes.GivenName, user.User_Name, ClaimValueTypes.String),
                 new Claim(ClaimTypes.NameIdentifier, user.User_Id.ToString(), ClaimValueTypes.String),
-                new Claim("reference_id", user.Reference_Id.ToString()),
-                new Claim("com_id", user.Com_Id.ToString()),
-                new Claim("Lst_Com_Id", user.Lst_Com_Id.ToString()),
-                new Claim("reference_type", user.User_Type.ToString()),
             };
 
             var expires = now.AddHours(Config_Info.TimeOutLogin);
