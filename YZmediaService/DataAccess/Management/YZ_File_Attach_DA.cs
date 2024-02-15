@@ -163,7 +163,7 @@ namespace DataAccess
             try
             {
                 OracleParameter paramReturn = new OracleParameter("p_return", OracleDbType.Decimal, ParameterDirection.Output);
-                OracleHelper.ExecuteNonQuery(Config_Info.gConnectionString, CommandType.StoredProcedure, Config_Info.c_user_connect + "pkg_YZ_FILEATTACH.pro_delete_attach_file",
+                OracleHelper.ExecuteNonQuery(Config_Info.gConnectionString, CommandType.StoredProcedure, Config_Info.c_user_connect + "pkg_YZ_FILEATTACH.proc_delete",
                     new OracleParameter("p_file_id", OracleDbType.Decimal, p_file_id, ParameterDirection.Input),
                      paramReturn
                 );

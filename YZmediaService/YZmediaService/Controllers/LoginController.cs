@@ -14,65 +14,7 @@ namespace YZmediaService.Controllers
 {
     public class LoginController : Controller
     {
-        [Route("api/sso/get-jwt")]
-        public ActionResult<YZ_UserInfo> Login(string p_user_name)
-        {
-            Logger.log.Debug("begin user_name " + p_user_name);
-
-            try
-            {
-                IActionResult response = Unauthorized();
-                string _key = CommonFunc.DecryptString_AES(p_user_name);
-                if (_key.Contains("dangtq0751060770") && _key.Contains("halu0212"))
-                {
-                    YZ_UserInfo userInfo = new YZ_UserInfo
-                    {
-                        User_Name = "XXXX",
-                        User_Type = 0
-                    };
-
-                    var tokenString = GenerateJSONWebToken(userInfo);
-                    return Json(new { success = "1", key = tokenString });
-                }
-                else
-                {
-                    return Json(new { success = "0", key = "" });
-                }
-            }
-            catch (Exception ex)
-            {
-                Logger.log.Error(ex.ToString());
-                return Json(new { success = "0", key = "" });
-            }
-        }
-
-        private string GenerateJSONWebToken(YZ_UserInfo userInfo)
-        {
-            var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Config_Info.Jwt_Key));
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
-
-            var claims = new[] {
-                new Claim(JwtRegisteredClaimNames.Sub,  userInfo.User_Name),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
-            };
-
-            var token = new JwtSecurityToken(Config_Info.Jwt_Issuer,
-                Config_Info.Jwt_Issuer,
-                claims,
-                signingCredentials: credentials);
-
-            if (Config_Info.TimeOutLogin > 0)
-            {
-                token = new JwtSecurityToken(Config_Info.Jwt_Issuer,
-                Config_Info.Jwt_Issuer,
-                claims,
-                expires: DateTime.Now.AddHours(Config_Info.TimeOutLogin),
-                signingCredentials: credentials);
-            }
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
-
+     
         private YZ_UserInfo AuthenticateUser(string p_user_name, string p_password)
         {
             try
