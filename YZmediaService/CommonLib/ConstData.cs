@@ -11,6 +11,7 @@ namespace CommonLib
         public static string FileAttach = "";
         public static string Link_Server_file = "";
         public static string Address_Server_Save_file = "";
+        public static string ApiClient_Service = "http:localhost....";
     }
 
     public static class User_Type
