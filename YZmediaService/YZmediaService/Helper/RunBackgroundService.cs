@@ -8,6 +8,8 @@ namespace YZmediaService.Helper
         {
             Task.Run(CacheMemoryData, cancellationToken); //Load memory: 5 min
 
+            Task.Run(Auto_Train_Image, cancellationToken);
+
             return Task.CompletedTask;
         }
 
@@ -24,6 +26,27 @@ namespace YZmediaService.Helper
                     Logger.log.Error(ex.ToString());
                 }
                 Thread.Sleep(5 * 60 * 1000);
+            }
+        }
+
+        public Task Auto_Train_Image()
+        {
+            while (true)
+            {
+                try
+                {
+                    //lấy danh sách bài viết status là đang xử lý dữ liệu
+
+                    //lấy top vài trăm file có status là chưa train theo bài viết lên gọi api train xong thì cập nhập trạng thái file
+
+                    //xong thì cập nhật trạng thái bài viết
+
+                }
+                catch (Exception ex)
+                {
+                    Logger.log.Error(ex.ToString());
+                }
+                Thread.Sleep(5000);
             }
         }
 
