@@ -6,7 +6,7 @@ namespace YZmediaService
 {
     public class ImageTrainningApi
     {
-        public static List<YZ_Fileattach_Info> GetbyCode(string p_code)
+        public static List<YZ_FileAttach_Info> GetbyCode(string p_code)
         {
             try
             {
@@ -17,16 +17,16 @@ namespace YZmediaService
                 request.AddParameter("p_code", p_code);
 
                 RestResponse response = client.Execute(request);
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<List<YZ_Fileattach_Info>>(response?.Content ?? "");
+                return Newtonsoft.Json.JsonConvert.DeserializeObject<List<YZ_FileAttach_Info>>(response?.Content ?? "");
             }
             catch (Exception ex)
             {
                 Logger.log.Error(ex, ex.Message);
-                return new List<YZ_Fileattach_Info>();
+                return new List<YZ_FileAttach_Info>();
             }
         }
 
-        public static decimal Insert(YZ_Fileattach_Info p_info)
+        public static decimal Insert(YZ_FileAttach_Info p_info)
         {
             try
             {

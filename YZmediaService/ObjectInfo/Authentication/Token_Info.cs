@@ -35,8 +35,6 @@
         public const string TaiKhoanID = "taikhoan_id";
         public const string UnitCode = "unit_code";
         public const string AnhDaiDien = "anh_dai_dien";
-
-
         public const string expires = "exp";
     }
 }

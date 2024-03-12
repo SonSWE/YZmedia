@@ -2,7 +2,7 @@
 
 namespace ObjectInfo
 {
-    public class YZ_UserInfo
+    public class YZ_User_Info
     {
         public decimal STT { get; set; }
         public string? User_Name { get; set; }

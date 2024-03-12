@@ -17,13 +17,13 @@ namespace YZmediaService.Controllers.System
         {
             try
             {
-                List<YZ_Allcode_Info> data = Allcode_Memory.Allcode_GetAll();
+                List<YZ_AllCode_Info> data = Allcode_Memory.Allcode_GetAll();
                 return Ok(new { jsondata = JsonConvert.SerializeObject(data) });
             }
             catch (Exception ex)
             {
                 Logger.log.Error(ex.ToString());
-                return StatusCode((int)HttpStatusCode.InternalServerError, new { jsondata = JsonConvert.SerializeObject(new List<YZ_Allcode_Info>()) });
+                return StatusCode((int)HttpStatusCode.InternalServerError, new { jsondata = JsonConvert.SerializeObject(new List<YZ_AllCode_Info>()) });
             }
         }
 
@@ -32,13 +32,13 @@ namespace YZmediaService.Controllers.System
         {
             try
             {
-                List<YZ_Allcode_Info> data = Allcode_Memory.Allcode_GetByCdnameCdtype(cdName, cdType);
+                List<YZ_AllCode_Info> data = Allcode_Memory.Allcode_GetByCdnameCdtype(cdName, cdType);
                 return Ok(new { jsondata = JsonConvert.SerializeObject(data) });
             }
             catch (Exception ex)
             {
                 Logger.log.Error(ex.ToString());
-                return StatusCode((int)HttpStatusCode.InternalServerError, new { jsondata = JsonConvert.SerializeObject(new List<YZ_Allcode_Info>()) });
+                return StatusCode((int)HttpStatusCode.InternalServerError, new { jsondata = JsonConvert.SerializeObject(new List<YZ_AllCode_Info>()) });
             }
         }
     }

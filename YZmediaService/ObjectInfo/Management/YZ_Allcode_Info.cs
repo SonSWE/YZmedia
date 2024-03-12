@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace ObjectInfo
 {
-    public class YZ_Allcode_Info
+    public class YZ_AllCode_Info
     {
         public string Cdname { get; set; }
         public string Cdtype { get; set; }

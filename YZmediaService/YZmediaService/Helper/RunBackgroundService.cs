@@ -1,4 +1,6 @@
 ﻿using CommonLib;
+using DataAccess;
+using ObjectInfo;
 
 namespace YZmediaService.Helper
 {
@@ -35,6 +37,16 @@ namespace YZmediaService.Helper
             {
                 try
                 {
+                    List<YZ_Post_Info> listPostUntrained = YZ_Post_DA.GetInstance().GetListPostUntrained();
+
+                    string url = Config_Info.FlaskApiAddress;
+
+                    foreach (var post in listPostUntrained)
+                    {
+
+                    }
+
+
                     //lấy danh sách bài viết status là đang xử lý dữ liệu
 
                     //lấy top vài trăm file có status là chưa train theo bài viết lên gọi api train xong thì cập nhập trạng thái file

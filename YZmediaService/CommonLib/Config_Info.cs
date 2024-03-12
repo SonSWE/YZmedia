@@ -22,6 +22,8 @@ namespace CommonLib
         public static string gConnectionString = "";
 
         public static string FolderSaveTemp = "";
+
+        public static string FlaskApiAddress = "";
         //public static SendEmail_Interface c_SendEmail_Interface;
     }
 }

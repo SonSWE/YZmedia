@@ -13,7 +13,7 @@ namespace DataAccess
     public class User_DA
     {
 
-        public YZ_UserInfo User_Login(string p_user_name, string p_password)
+        public YZ_User_Info User_Login(string p_user_name, string p_password)
         {
             try
             {
@@ -22,12 +22,12 @@ namespace DataAccess
                     new OracleParameter("p_password", OracleDbType.Varchar2, p_password, ParameterDirection.Input),
                     new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output)
                 );
-                return CBO<YZ_UserInfo>.FillObjectFromDataSet(ds);
+                return CBO<YZ_User_Info>.FillObjectFromDataSet(ds);
             }
             catch (Exception ex)
             {
                 Logger.log.Error(ex.ToString());
-                return new YZ_UserInfo();
+                return new YZ_User_Info();
             }
         }
     }

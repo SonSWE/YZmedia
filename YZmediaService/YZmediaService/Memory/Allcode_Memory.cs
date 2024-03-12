@@ -6,13 +6,13 @@ namespace YZmediaService.Memory
 {
     public class Allcode_Memory
     {
-        static List<YZ_Allcode_Info> _lstAllcode = new();
+        static List<YZ_AllCode_Info> _lstAllcode = new();
 
         public static void Reload()
         {
             try
             {
-                List<YZ_Allcode_Info> _lst = new YZ_AllCode_DA().getAllCode();
+                List<YZ_AllCode_Info> _lst = new YZ_AllCode_DA().getAllCode();
                 _lstAllcode = _lst;
             }
             catch (Exception ex)
@@ -21,7 +21,7 @@ namespace YZmediaService.Memory
             }
         }
 
-        public static List<YZ_Allcode_Info> Allcode_GetAll()
+        public static List<YZ_AllCode_Info> Allcode_GetAll()
         {
             try
             {
@@ -34,11 +34,11 @@ namespace YZmediaService.Memory
             catch (Exception ex)
             {
                 Logger.log.Error(ex.ToString());
-                return new List<YZ_Allcode_Info>();
+                return new List<YZ_AllCode_Info>();
             }
         }
 
-        public static List<YZ_Allcode_Info> Allcode_GetByCdnameCdtype(string cdname, string cdtype)
+        public static List<YZ_AllCode_Info> Allcode_GetByCdnameCdtype(string cdname, string cdtype)
         {
             try
             {
@@ -47,11 +47,11 @@ namespace YZmediaService.Memory
             catch (Exception ex)
             {
                 Logger.log.Error(ex.ToString());
-                return new List<YZ_Allcode_Info>();
+                return new List<YZ_AllCode_Info>();
             }
         }
 
-        public static List<YZ_Allcode_Info> Allcode_GetByCdname(string cdname)
+        public static List<YZ_AllCode_Info> Allcode_GetByCdname(string cdname)
         {
             try
             {
@@ -60,11 +60,11 @@ namespace YZmediaService.Memory
             catch (Exception ex)
             {
                 Logger.log.Error(ex.ToString());
-                return new List<YZ_Allcode_Info>();
+                return new List<YZ_AllCode_Info>();
             }
         }
 
-        public static List<YZ_Allcode_Info> Allcode_GetByCdtype(string cdtype)
+        public static List<YZ_AllCode_Info> Allcode_GetByCdtype(string cdtype)
         {
             try
             {
@@ -73,7 +73,7 @@ namespace YZmediaService.Memory
             catch (Exception ex)
             {
                 Logger.log.Error(ex.ToString());
-                return new List<YZ_Allcode_Info>();
+                return new List<YZ_AllCode_Info>();
             }
         }
 
@@ -81,7 +81,7 @@ namespace YZmediaService.Memory
         {
             try
             {
-                YZ_Allcode_Info? _allcode = _lstAllcode.FirstOrDefault(x => x.Cdname.Equals(cdname) && x.Cdtype.Equals(cdtype) && x.Cdval.Equals(cdval));
+                YZ_AllCode_Info? _allcode = _lstAllcode.FirstOrDefault(x => x.Cdname.Equals(cdname) && x.Cdtype.Equals(cdtype) && x.Cdval.Equals(cdval));
                 if (_allcode != null)
                 {
                     return _allcode.Content;
@@ -95,7 +95,7 @@ namespace YZmediaService.Memory
             return string.Empty;
         }
 
-        public static List<YZ_Allcode_Info> Allcode_GetByCdtypeCdVal(string cdtype, string vdval)
+        public static List<YZ_AllCode_Info> Allcode_GetByCdtypeCdVal(string cdtype, string vdval)
         {
             try
             {
@@ -104,7 +104,7 @@ namespace YZmediaService.Memory
             catch (Exception ex)
             {
                 Logger.log.Error(ex.ToString());
-                return new List<YZ_Allcode_Info>();
+                return new List<YZ_AllCode_Info>();
             }
         }
 
@@ -112,7 +112,7 @@ namespace YZmediaService.Memory
         {
             try
             {
-                YZ_Allcode_Info? result = _lstAllcode.FirstOrDefault(x => x.Cdtype == cdtype && x.Cdval == cdval);
+                YZ_AllCode_Info? result = _lstAllcode.FirstOrDefault(x => x.Cdtype == cdtype && x.Cdval == cdval);
                 if (result != null)
                 {
                     return result.Content;
@@ -125,7 +125,7 @@ namespace YZmediaService.Memory
             return string.Empty;
         }
 
-        public static List<YZ_Allcode_Info> Allcode_Get_Like_CDVal(string cdname, string cdval)
+        public static List<YZ_AllCode_Info> Allcode_Get_Like_CDVal(string cdname, string cdval)
         {
             try
             {
@@ -134,7 +134,7 @@ namespace YZmediaService.Memory
             catch (Exception ex)
             {
                 Logger.log.Error(ex.ToString());
-                return new List<YZ_Allcode_Info>();
+                return new List<YZ_AllCode_Info>();
             }
         }
     }

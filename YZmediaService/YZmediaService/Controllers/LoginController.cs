@@ -15,12 +15,12 @@ namespace YZmediaService.Controllers
     public class LoginController : Controller
     {
      
-        private YZ_UserInfo AuthenticateUser(string p_user_name, string p_password)
+        private YZ_User_Info AuthenticateUser(string p_user_name, string p_password)
         {
             try
             {
                 User_DA user_DA = new User_DA();
-                YZ_UserInfo userInfo = user_DA.User_Login(p_user_name, p_password);
+                YZ_User_Info userInfo = user_DA.User_Login(p_user_name, p_password);
                 
                 return userInfo;
             }
@@ -213,7 +213,7 @@ namespace YZmediaService.Controllers
         }
 
 
-        private async Task<Tuple<string, string>> GetJwtAsync(string Refresh_Token, YZ_UserInfo user)
+        private async Task<Tuple<string, string>> GetJwtAsync(string Refresh_Token, YZ_User_Info user)
         {
             var now = DateTime.UtcNow;
 

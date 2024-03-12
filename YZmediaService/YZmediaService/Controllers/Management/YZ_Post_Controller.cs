@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using ObjectInfo;
-using System.Security.Cryptography;
 
 
 namespace YZmediaService.Controllers.Management
@@ -16,52 +15,48 @@ namespace YZmediaService.Controllers.Management
             return View();
         }
 
-
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         [Route("api/manager/posts/get-all")]
         public IActionResult Get_all()
         {
             try
             {
-                YZ_Post_DA _DA = new YZ_Post_DA();
-                List<YZ_Post_Info> _lst = _DA.GetAll();
-                return Ok(new { jsondata = Newtonsoft.Json.JsonConvert.SerializeObject(_lst) });
-
+                List<YZ_Post_Info> _lst = YZ_Post_DA.GetInstance().GetAll();
+                return Ok(new { jsondata = JsonConvert.SerializeObject(_lst) });
             }
             catch (Exception ex)
             {
                 Logger.log.Error(ex.ToString());
-                return Ok(new { jsondata = Newtonsoft.Json.JsonConvert.SerializeObject(new List<YZ_Post_Info>()) });
+                return Ok(new { jsondata = JsonConvert.SerializeObject(new List<YZ_Post_Info>()) });
             }
         }
 
         [HttpGet]
-        [Authorize]
+        //[Authorize]
         [Route("api/manager/posts/get-ByID")]
         public IActionResult Get_getByID(string p_user_name, decimal p_id)
         {
             try
             {
-                YZ_Post_DA _DA = new YZ_Post_DA();
-                YZ_Post_Info _lst = _DA.Get_getByID(p_id);
-                return Json(new { jsondata = Newtonsoft.Json.JsonConvert.SerializeObject(_lst) });
+                YZ_Post_Info _lst = YZ_Post_DA.GetInstance().Get_getByID(p_id);
+                return Json(new { jsondata = JsonConvert.SerializeObject(_lst) });
             }
             catch (Exception ex)
             {
                 Logger.log.Error(ex.ToString());
-                return Json(new { jsondata = Newtonsoft.Json.JsonConvert.SerializeObject(new YZ_Post_Info()) });
+                return Json(new { jsondata = JsonConvert.SerializeObject(new YZ_Post_Info()) });
             }
         }
 
         [HttpPost]
-        [Authorize]
-        [Route("api/manager/posts/Insert")]
+        //[Authorize]
+        [Route("api/manager/posts/insert")]
         public IActionResult Insert([FromForm] YZ_Post_Info info)
         {
             decimal _success = -1; string responseMessage = "Thêm mới thất bại!";
             string idFocus = string.Empty;
-            List<YZ_Fileattach_Info> _lst_fileAttach = new List<YZ_Fileattach_Info>();
+            List<YZ_FileAttach_Info> _lst_fileAttach = new List<YZ_FileAttach_Info>();
             try
             {
                 int numFIle = 0;
@@ -74,10 +69,9 @@ namespace YZmediaService.Controllers.Management
                 }
                 else
                 {
-                    // thêm mới hồ sợ nhân sự
                     info.list_file_attach = _lst_fileAttach;
 
-                    _success = new YZ_Post_DA().Insert(info);
+                    _success = YZ_Post_DA.GetInstance().Insert(info);
 
                     if (_success > 0)
                     {
@@ -95,13 +89,13 @@ namespace YZmediaService.Controllers.Management
         }
 
         [HttpPost]
-        [Authorize]
-        [Route("api/manager/posts/Update")]
+        //[Authorize]
+        [Route("api/manager/posts/update")]
         public IActionResult Human_update([FromForm] YZ_Post_Info info)
         {
 
             decimal _success = -1; string responseMessage = "Cập nhập thất bại"; string idFocus = string.Empty;
-            List<YZ_Fileattach_Info> _lst_fileAttach = new List<YZ_Fileattach_Info>();
+            List<YZ_FileAttach_Info> _lst_fileAttach = new List<YZ_FileAttach_Info>();
             try
             {
                 int numFIle = 0;
@@ -114,7 +108,7 @@ namespace YZmediaService.Controllers.Management
                     _success = -4;
                     return Json(new { code = _success.ToString(), _responseMessage = responseMessage });
                 }
-                _success = new YZ_Post_DA().Update(info);
+                _success = YZ_Post_DA.GetInstance().Update(info);
                 if (_success > 0)
                 {
                     responseMessage = "Cập nhật thành công!";
@@ -131,14 +125,13 @@ namespace YZmediaService.Controllers.Management
         }
 
         [HttpPost]
-        [Authorize]
+        //[Authorize]
         [Route("api/manager/posts/delete")]
         public IActionResult Delete(decimal p_id, string p_user_name)
         {
             try
             {
-                YZ_Post_DA _DA = new YZ_Post_DA();
-                decimal _result = _DA.Delete(p_id, p_user_name);
+                decimal _result = YZ_Post_DA.GetInstance().Delete(p_id, p_user_name);
                 return Json(new { code = _result.ToString() });
             }
             catch (Exception ex)
@@ -156,9 +149,8 @@ namespace YZmediaService.Controllers.Management
         {
             try
             {
-                YZ_Post_DA _Da = new YZ_Post_DA();
                 decimal p_total_record = 0;
-                List<YZ_Post_Info> _lst = _Da.Search(p_user_name, keysearch, from, to, p_order_by, ref p_total_record);
+                List<YZ_Post_Info> _lst = YZ_Post_DA.GetInstance().Search(p_user_name, keysearch, from, to, p_order_by, ref p_total_record);
 
                 return Ok(new { totalrows = p_total_record, jsondata = JsonConvert.SerializeObject(_lst) });
             }
@@ -170,7 +162,7 @@ namespace YZmediaService.Controllers.Management
             }
         }
 
-        private int UploadFile(ref List<YZ_Fileattach_Info> lstFileAttach)
+        private int UploadFile(ref List<YZ_FileAttach_Info> lstFileAttach)
         {
             try
             {
@@ -197,7 +189,7 @@ namespace YZmediaService.Controllers.Management
                                 double fileSizeInKB = (double)fileSizeInBytes / 1024; // KB
                                 double fileSizeInMB = fileSizeInKB / 1024; // MB
 
-                                lstFileAttach.Add(new YZ_Fileattach_Info()
+                                lstFileAttach.Add(new YZ_FileAttach_Info()
                                 {
                                     File_Name = fileName,
                                     File_Url = url_full_url_file,

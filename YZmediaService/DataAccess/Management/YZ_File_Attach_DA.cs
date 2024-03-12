@@ -12,7 +12,7 @@ namespace DataAccess
 {
     public class YZ_File_Attach_DA
     {
-        public YZ_Fileattach_Info Get_Lst_getByID(decimal p_id)
+        public YZ_FileAttach_Info Get_Lst_getByID(decimal p_id)
         {
             try
             {
@@ -21,17 +21,16 @@ namespace DataAccess
                     new OracleParameter("p_id", OracleDbType.Decimal, p_id, ParameterDirection.Input),
                     new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output)
                 );
-                return CBO<YZ_Fileattach_Info>.FillObjectFromDataSet(ds);
+                return CBO<YZ_FileAttach_Info>.FillObjectFromDataSet(ds);
             }
             catch (Exception ex)
             {
                 Logger.log.Error(ex.ToString());
-                return new YZ_Fileattach_Info();
+                return new YZ_FileAttach_Info();
             }
         }
 
-
-        public decimal Insert_FileAttach(YZ_Fileattach_Info p_data)
+        public decimal Insert_FileAttach(YZ_FileAttach_Info p_data)
         {
             try
             {
@@ -56,7 +55,7 @@ namespace DataAccess
             }
         }
 
-        public decimal Update_FileAttach(YZ_Fileattach_Info p_data)
+        public decimal Update_FileAttach(YZ_FileAttach_Info p_data)
         {
             try
             {
@@ -81,8 +80,7 @@ namespace DataAccess
             }
         }
 
-
-        public decimal Insert_FileAttach_Batch(List<YZ_Fileattach_Info> lst_data)
+        public decimal Insert_FileAttach_Batch(List<YZ_FileAttach_Info> lst_data)
         {
             decimal _result = 1;
             try
@@ -117,8 +115,7 @@ namespace DataAccess
             return _result;
         }
 
-
-        public decimal Update_FileAttach_Batch(List<YZ_Fileattach_Info> lst_data)
+        public decimal Update_FileAttach_Batch(List<YZ_FileAttach_Info> lst_data)
         {
             decimal _result = 1;
             try
@@ -152,11 +149,6 @@ namespace DataAccess
 
             return _result;
         }
-
-        
-
-
-
 
         public decimal Delete_FileAttach( decimal p_file_id)
         {

@@ -11,7 +11,7 @@ using System.Xml.Linq;
 
 namespace DataAccess
 {
-    public class YZ_Post_DA
+    public class YZ_Post_DA : BaseService<YZ_Post_DA>
     {
         public List<YZ_Post_Info> GetAll()
         {
@@ -142,5 +142,22 @@ namespace DataAccess
             }
         }
 
+
+        public List<YZ_Post_Info> GetListPostUntrained()
+        {
+            try
+            {
+                DataSet ds = OracleHelper.ExecuteDataset(Config_Info.gConnectionString, CommandType.StoredProcedure,
+                    Config_Info.c_user_connect + "PKG_YZ_POSTS.PROC_GetListUntrained",
+                    new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output)
+                );
+                return CBO<YZ_Post_Info>.FillCollection_FromDataSet(ds);
+            }
+            catch (Exception ex)
+            {
+                Logger.log.Error(ex.ToString());
+                return new List<YZ_Post_Info>();
+            }
+        }
     }
 }

@@ -6,7 +6,7 @@ namespace YZmediaService
 {
     public static class JWTHelper
     {
-        public static YZ_UserInfo? GetUserInfo(string token)
+        public static YZ_User_Info? GetUserInfo(string token)
         {
             if (string.IsNullOrEmpty(token))
             {

@@ -15,12 +15,12 @@ namespace ObjectInfo
         public decimal Is_Private { get; set; }
         public string Password { get; set; }
         public decimal Status { get; set; }
-        public string Status_Text { get; set; }
+        public decimal Deleted { get; set; }
         public string Created_By { get; set; }
         public DateTime Created_Date { get; set; }
         public string Modified_By { get; set; }
         public DateTime Modified_Date { get; set; }
 
-        public List<YZ_Fileattach_Info> list_file_attach  = new List<YZ_Fileattach_Info>();
+        public List<YZ_FileAttach_Info> list_file_attach  = new List<YZ_FileAttach_Info>();
     }
 }

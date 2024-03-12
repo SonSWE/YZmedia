@@ -13,7 +13,7 @@ namespace DataAccess
 
     public class YZ_AllCode_DA
     {
-        public List<YZ_Allcode_Info> getAllCode_cdname_cdtype(string p_cdname, string p_cdtype)
+        public List<YZ_AllCode_Info> getAllCode_cdname_cdtype(string p_cdname, string p_cdtype)
         {
             try
             {
@@ -23,17 +23,17 @@ namespace DataAccess
                     new OracleParameter("p_cdtype", OracleDbType.Varchar2, p_cdtype, ParameterDirection.Input),
                     new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output)
                 );
-                return CBO<YZ_Allcode_Info>.FillCollection_FromDataSet(ds);
+                return CBO<YZ_AllCode_Info>.FillCollection_FromDataSet(ds);
             }
             catch (Exception ex)
             {
                 Logger.log.Error(ex.ToString());
-                return new List<YZ_Allcode_Info>();
+                return new List<YZ_AllCode_Info>();
             }
         }
 
 
-        public List<YZ_Allcode_Info> getAllCode()
+        public List<YZ_AllCode_Info> getAllCode()
         {
             try
             {
@@ -41,12 +41,12 @@ namespace DataAccess
                     Config_Info.c_user_connect + "pkg_allcode.proc_get_allCode",
                     new OracleParameter("p_cursor", OracleDbType.RefCursor, ParameterDirection.Output)
                 );
-                return CBO<YZ_Allcode_Info>.FillCollection_FromDataSet(ds);
+                return CBO<YZ_AllCode_Info>.FillCollection_FromDataSet(ds);
             }
             catch (Exception ex)
             {
                 Logger.log.Error(ex.ToString());
-                return new List<YZ_Allcode_Info>();
+                return new List<YZ_AllCode_Info>();
             }
         }
     }
